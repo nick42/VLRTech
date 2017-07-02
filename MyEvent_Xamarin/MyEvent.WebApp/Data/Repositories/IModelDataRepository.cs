@@ -8,12 +8,14 @@ namespace MyEvent.WebApp.Data.Repositories
     public interface IModelDataRepository<TModel>
     {
         IEnumerable<TModel> GetAll();
-        TModel FindByID(Guid idRowID);
-        Guid Add(ref TModel oInstance);
-        void Update(TModel oInstance);
-        void DeleteByID(Guid idRowID);
+        Task<TModel> FindByID(Guid idRowID);
+        Task<Guid> Add(ref TModel oInstance);
+        Task Update(TModel oInstance);
+        Task DeleteByID(Guid idRowID);
 
-        bool CheckExists(Guid idRowID);
-        Guid EnsureExists(ref TModel oInstance);
+        Task<bool> CheckExists(Guid idRowID);
+        Task<Guid> EnsureExists(ref TModel oInstance);
+
+        Task<int> SaveChangesAsync();
     }
 }

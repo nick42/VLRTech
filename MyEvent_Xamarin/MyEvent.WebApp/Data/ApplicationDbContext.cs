@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyEvent.WebApp.Models;
+using MyEvent.WebApp.Data.Models;
 
 namespace MyEvent.WebApp.Data
 {
@@ -25,5 +26,7 @@ namespace MyEvent.WebApp.Data
             // Don't need this; MS apparently didn't fuck it up in EF7
             //modelBuilder.Conventions.Remove<PluralizingEntitySetNameConvention>();
         }
+
+        public DbSet<MyEvent.WebApp.Data.Models.Event> Event { get; set; }
     }
 }

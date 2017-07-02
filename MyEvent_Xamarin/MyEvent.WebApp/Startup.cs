@@ -52,10 +52,15 @@ namespace MyEvent.WebApp
             // Note: Actual DB-backed repositories should be added as Scoped
             // Test repositories should probably be added as Singleton, to persist for the lifetime of a run
 
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.Event>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.Event>>();
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.PlannedActivity>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.PlannedActivity>>();
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>>();
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>>();
+            // Note: Data population (in current form) doesn't work if the services container is allowed to create the singleton instances.
+            // I guess this is because there are actually different singletons per service provider, and the configuration method to add 
+            // test data is creating a new service provider. Constructing the instances explicitly fixes this issue (would be a separate 
+            // issue if we needed dispose semantics, as that is not called by the services container on external instance add).
+
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.Event>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.Event>());
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.PlannedActivity>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.PlannedActivity>());
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>());
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>());
             services.AddSingleton<TestDataPopulation>();
 
             // Add application services.

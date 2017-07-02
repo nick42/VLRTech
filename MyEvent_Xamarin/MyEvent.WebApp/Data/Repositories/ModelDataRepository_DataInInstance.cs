@@ -14,22 +14,12 @@ namespace MyEvent.WebApp.Data.Repositories
             return m_oDataCollection;
         }
 
-        public bool CheckExists(Guid idRowID)
+        public Task<TModel> FindByID(Guid idRowID)
         {
-            return (FindByID(idRowID) != null);
+            return Task.FromResult(m_oDataCollection.Where(oRow => oRow.idRowID == idRowID).First());
         }
 
-        public void DeleteByID(Guid idRowID)
-        {
-            m_oDataCollection.RemoveAll(oRow => oRow.idRowID == idRowID);
-        }
-
-        public TModel FindByID(Guid idRowID)
-        {
-            return m_oDataCollection.Where(oRow => oRow.idRowID == idRowID).First();
-        }
-
-        public Guid Add(ref TModel oInstance)
+        public Task<Guid> Add(ref TModel oInstance)
         {
             if (oInstance.idRowID == Guid.Empty)
             {
@@ -37,10 +27,10 @@ namespace MyEvent.WebApp.Data.Repositories
             }
             m_oDataCollection.Add(oInstance);
 
-            return oInstance.idRowID;
+            return Task.FromResult(oInstance.idRowID);
         }
 
-        public void Update(TModel oInstance)
+        public Task Update(TModel oInstance)
         {
             var oExistingInstanceIndex = m_oDataCollection.FindIndex(oRow => oRow.idRowID == oInstance.idRowID);
             if (oExistingInstanceIndex == -1)
@@ -49,9 +39,23 @@ namespace MyEvent.WebApp.Data.Repositories
             }
             m_oDataCollection.RemoveAt(oExistingInstanceIndex);
             m_oDataCollection.Insert(oExistingInstanceIndex, oInstance);
+
+            return Task.FromResult<object>(null);
         }
 
-        public Guid EnsureExists(ref TModel oInstance)
+        public Task DeleteByID(Guid idRowID)
+        {
+            m_oDataCollection.RemoveAll(oRow => oRow.idRowID == idRowID);
+
+            return Task.FromResult<object>(null);
+        }
+
+        public Task<bool> CheckExists(Guid idRowID)
+        {
+            return Task.FromResult(FindByID(idRowID) != null);
+        }
+
+        public Task<Guid> EnsureExists(ref TModel oInstance)
         {
             if (oInstance.idRowID == Guid.Empty)
             {
@@ -62,10 +66,16 @@ namespace MyEvent.WebApp.Data.Repositories
             var oExistingInstance = m_oDataCollection.Where(oRow => oRow.idRowID == idRowID_Instance).First();
             if (oExistingInstance != null)
             {
-                return oExistingInstance.idRowID;
+                return Task.FromResult(oExistingInstance.idRowID);
             }
 
             return Add(ref oInstance);
+        }
+
+        // Note: Pseudo-emulation for deferred save (return "0")
+        public Task<int> SaveChangesAsync()
+        {
+            return Task.FromResult(0);
         }
     }
 }
