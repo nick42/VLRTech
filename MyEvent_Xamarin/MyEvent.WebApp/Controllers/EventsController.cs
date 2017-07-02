@@ -12,6 +12,7 @@ namespace MyEvent.WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [Filters.ValidateModelFilter]
     public class EventsController : Controller
     {
         private readonly Data.Repositories.IModelDataRepository<Data.Models.Event> m_oModelDataRepository;
@@ -32,12 +33,7 @@ namespace MyEvent.WebApp.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEvent([FromRoute] Guid id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            var oInstance = await m_oModelDataRepository.FindByID(id);
+            var oInstance = await m_oModelDataRepository.FindByIDAsync(id);
 
             if (oInstance == null)
             {
@@ -51,18 +47,13 @@ namespace MyEvent.WebApp.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEvent([FromRoute] Guid id, [FromBody] Event oInstance)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (id != oInstance.idRowID)
             {
                 return BadRequest();
             }
 
             // TODO: Catch update errors...
-            await m_oModelDataRepository.Update(oInstance);
+            await m_oModelDataRepository.UpdateAsync(oInstance);
             await m_oModelDataRepository.SaveChangesAsync();
 
             return NoContent();
@@ -72,12 +63,7 @@ namespace MyEvent.WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> PostEvent([FromBody] Event oInstance)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await m_oModelDataRepository.Add(ref oInstance);
+            await m_oModelDataRepository.AddAsync(ref oInstance);
             await m_oModelDataRepository.SaveChangesAsync();
 
             return CreatedAtAction("GetEvent", new { id = oInstance.idRowID }, oInstance);
@@ -87,12 +73,7 @@ namespace MyEvent.WebApp.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEvent([FromRoute] Guid id)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            await m_oModelDataRepository.DeleteByID(id);
+            await m_oModelDataRepository.DeleteByIDAsync(id);
             await m_oModelDataRepository.SaveChangesAsync();
 
             return NoContent();

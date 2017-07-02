@@ -32,7 +32,7 @@ namespace MyEvent.WebApp.Data
                 sName = "Nerd Day",
             };
 
-            m_oEventRepository.EnsureExists(ref oEvent_GamingSession);
+            m_oEventRepository.EnsureExistsAsync(ref oEvent_GamingSession);
             Debug.Assert(oEvent_GamingSession.idRowID != Guid.Empty);
 
             Models.PlannedActivity oActivity_Adventure = new Models.PlannedActivity
@@ -42,7 +42,7 @@ namespace MyEvent.WebApp.Data
                 sDescription_Brief = "Explore, fight, get loot.",
                 sDescription_Full = "Blah blah blah, more stuff.",
             };
-            m_oPlannedActivityRepository.EnsureExists(ref oActivity_Adventure);
+            m_oPlannedActivityRepository.EnsureExistsAsync(ref oActivity_Adventure);
             Debug.Assert(oActivity_Adventure.idRowID != Guid.Empty);
 
             Models.PlannedActivity oActivity_Socialize = new Models.PlannedActivity
@@ -52,7 +52,7 @@ namespace MyEvent.WebApp.Data
                 sDescription_Brief = "Pretend I have friends.",
                 sDescription_Full = "This is where I pretend I have social skills, or something.",
             };
-            m_oPlannedActivityRepository.EnsureExists(ref oActivity_Socialize);
+            m_oPlannedActivityRepository.EnsureExistsAsync(ref oActivity_Socialize);
             Debug.Assert(oActivity_Adventure.idRowID != Guid.Empty);
 
             Models.AddressInfo oAddress_Somewhere = new Models.AddressInfo
@@ -62,14 +62,14 @@ namespace MyEvent.WebApp.Data
                 sState = "CA",
                 sZipCode = "90210",
             };
-            m_oAddressInfoRepository.EnsureExists(ref oAddress_Somewhere);
+            m_oAddressInfoRepository.EnsureExistsAsync(ref oAddress_Somewhere);
             Debug.Assert(oAddress_Somewhere.idRowID != Guid.Empty);
 
             Models.LocationInfo oLocation_GamingSession = new Models.LocationInfo
             {
                 idAddressInfoID = oAddress_Somewhere.idRowID,
             };
-            m_oLocationInfoRepository.EnsureExists(ref oLocation_GamingSession);
+            m_oLocationInfoRepository.EnsureExistsAsync(ref oLocation_GamingSession);
             Debug.Assert(oLocation_GamingSession.idRowID != Guid.Empty);
         }
     }

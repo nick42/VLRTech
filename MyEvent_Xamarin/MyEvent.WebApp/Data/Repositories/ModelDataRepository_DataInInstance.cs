@@ -14,12 +14,12 @@ namespace MyEvent.WebApp.Data.Repositories
             return m_oDataCollection;
         }
 
-        public Task<TModel> FindByID(Guid idRowID)
+        public Task<TModel> FindByIDAsync(Guid idRowID)
         {
             return Task.FromResult(m_oDataCollection.Where(oRow => oRow.idRowID == idRowID).First());
         }
 
-        public Task<Guid> Add(ref TModel oInstance)
+        public Task<Guid> AddAsync(ref TModel oInstance)
         {
             if (oInstance.idRowID == Guid.Empty)
             {
@@ -30,7 +30,7 @@ namespace MyEvent.WebApp.Data.Repositories
             return Task.FromResult(oInstance.idRowID);
         }
 
-        public Task Update(TModel oInstance)
+        public Task UpdateAsync(TModel oInstance)
         {
             var oExistingInstanceIndex = m_oDataCollection.FindIndex(oRow => oRow.idRowID == oInstance.idRowID);
             if (oExistingInstanceIndex == -1)
@@ -43,23 +43,23 @@ namespace MyEvent.WebApp.Data.Repositories
             return Task.FromResult<object>(null);
         }
 
-        public Task DeleteByID(Guid idRowID)
+        public Task DeleteByIDAsync(Guid idRowID)
         {
             m_oDataCollection.RemoveAll(oRow => oRow.idRowID == idRowID);
 
             return Task.FromResult<object>(null);
         }
 
-        public Task<bool> CheckExists(Guid idRowID)
+        public Task<bool> CheckExistsAsync(Guid idRowID)
         {
-            return Task.FromResult(FindByID(idRowID) != null);
+            return Task.FromResult(FindByIDAsync(idRowID) != null);
         }
 
-        public Task<Guid> EnsureExists(ref TModel oInstance)
+        public Task<Guid> EnsureExistsAsync(ref TModel oInstance)
         {
             if (oInstance.idRowID == Guid.Empty)
             {
-                return Add(ref oInstance);
+                return AddAsync(ref oInstance);
             }
 
             var idRowID_Instance = oInstance.idRowID;
@@ -69,7 +69,7 @@ namespace MyEvent.WebApp.Data.Repositories
                 return Task.FromResult(oExistingInstance.idRowID);
             }
 
-            return Add(ref oInstance);
+            return AddAsync(ref oInstance);
         }
 
         // Note: Pseudo-emulation for deferred save (return "0")
