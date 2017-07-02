@@ -53,11 +53,16 @@ namespace MyEvent.WebApp
             // Test repositories should probably be added as Singleton, to persist for the lifetime of a run
 
             services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.Event>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.Event>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.PlannedActivity>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.PlannedActivity>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>>();
             services.AddSingleton<TestDataPopulation>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+
+            AddSampleDataToRepositories(services);
         }
 
         public void AddSampleDataToRepositories(IServiceCollection services)

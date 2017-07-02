@@ -7,7 +7,7 @@ namespace MyEvent.WebApp.Data.Repositories
 {
     public class ModelDataRepository_DataInInstance<TModel> : IModelDataRepository<TModel> where TModel : Models.ObjectWithRowID
     {
-        protected List<TModel> m_oDataCollection;
+        protected List<TModel> m_oDataCollection = new List<TModel>();
 
         public IEnumerable<TModel> GetAll()
         {

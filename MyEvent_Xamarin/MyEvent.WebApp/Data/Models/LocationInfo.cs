@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyEvent.WebApp.Data.Models
 {
-    public class Event : ObjectWithRowID
+    public class LocationInfo : ObjectWithRowID
     {
-        public String sName { get; set; }
-
-        public Guid idPrimaryLocationID { get; set; }
+        public Guid idAddressInfoID { get; set; }
     }
 }
