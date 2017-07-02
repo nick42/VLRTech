@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace MyEvent.WebApp.Data.Models
 {
-    public class Event : ObjectWithRowID
+    public class ScheduleInfo : ObjectWithRowID
     {
-        public String sName { get; set; }
-
-        public Guid idPrimaryLocationID { get; set; }
-        public Guid idScheduleInfoID { get; set; }
+        public Guid idParentScheduleInfoID { get; set; }
     }
 }

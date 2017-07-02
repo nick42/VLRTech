@@ -14,7 +14,6 @@ namespace MyEvent.WebApp.Data.Models
         public String sDescription_Brief { get; set; }
         public String sDescription_Full { get; set; }
 
-        public DateTime dtStartTime { get; set; }
-        public DateTime dtEndTime { get; set; }
+        public Guid idScheduleInfoID { get; set; }
     }
 }
