@@ -57,22 +57,30 @@ namespace MyEvent.WebApp
             // test data is creating a new service provider. Constructing the instances explicitly fixes this issue (would be a separate 
             // issue if we needed dispose semantics, as that is not called by the services container on external instance add).
 
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.Event>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.Event>());
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.PlannedActivity>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.PlannedActivity>());
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>());
-            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>>(new Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>());
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.Event>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.Event>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.PlannedActivity>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.PlannedActivity>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.ScheduleInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.ScheduleInfo>>();
             services.AddSingleton<TestDataPopulation>();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
-            AddSampleDataToRepositories(services);
+            // Register the Swagger generator, defining one or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                {
+                    Title = "MyEvent API",
+                    Version = "v1"
+                });
+            });
         }
 
-        public void AddSampleDataToRepositories(IServiceCollection services)
+        public void AddSampleDataToRepositories(IServiceProvider oServiceProvider)
         {
-            var oServiceProvider = services.BuildServiceProvider();
             var oTestDataPopulation = oServiceProvider.GetService<TestDataPopulation>();
             if (oTestDataPopulation != null)
             {
@@ -81,7 +89,7 @@ namespace MyEvent.WebApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -109,6 +117,17 @@ namespace MyEvent.WebApp
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEvent API V1");
+            });
+
+            AddSampleDataToRepositories(serviceProvider);
         }
     }
 }

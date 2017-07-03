@@ -13,11 +13,11 @@ namespace MyEvent.WebApp.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Filters.ValidateModelFilter]
-    public class EventsController : Controller
+    public class EventController : Controller
     {
         private readonly Data.Repositories.IModelDataRepository<Data.Models.Event> m_oModelDataRepository;
 
-        public EventsController(Data.Repositories.IModelDataRepository<Data.Models.Event> oModelDataRepository)
+        public EventController(Data.Repositories.IModelDataRepository<Data.Models.Event> oModelDataRepository)
         {
             m_oModelDataRepository = oModelDataRepository;
         }

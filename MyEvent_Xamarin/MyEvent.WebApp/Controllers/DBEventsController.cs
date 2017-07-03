@@ -12,6 +12,7 @@ namespace MyEvent.WebApp.Controllers
 {
     [Produces("application/json")]
     [Route("api/[controller]")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DBEventsController : Controller
     {
         private readonly ApplicationDbContext _context;

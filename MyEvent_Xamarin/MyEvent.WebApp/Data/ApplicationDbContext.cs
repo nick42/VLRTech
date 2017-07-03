@@ -28,5 +28,7 @@ namespace MyEvent.WebApp.Data
         }
 
         public DbSet<MyEvent.WebApp.Data.Models.Event> Event { get; set; }
+
+        public DbSet<MyEvent.WebApp.Data.Models.AddressInfo> AddressInfo { get; set; }
     }
 }
