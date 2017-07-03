@@ -12,5 +12,15 @@ namespace MyEvent.WebApp.Data.Models
         public String sCity { get; set; }
         public String sState { get; set; }
         public String sZipCode { get; set; }
+
+        public AddressInfo() { }
+        public AddressInfo(AddressInfo oOther)
+            : base(oOther)
+        {
+            sStreetAddress = oOther.sStreetAddress;
+            sCity = oOther.sCity;
+            sState = oOther.sState;
+            sZipCode = oOther.sZipCode;
+        }
     }
 }

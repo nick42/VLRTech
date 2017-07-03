@@ -77,5 +77,10 @@ namespace MyEvent.WebApp.Data.Repositories
         {
             return Task.FromResult(0);
         }
+
+        public IEnumerable<TModel> Find(Func<TModel, bool> fMatchExpression)
+        {
+            return m_oDataCollection.Where(fMatchExpression);
+        }
     }
 }

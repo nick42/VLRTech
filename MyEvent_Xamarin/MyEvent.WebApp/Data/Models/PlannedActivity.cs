@@ -15,5 +15,16 @@ namespace MyEvent.WebApp.Data.Models
         public String sDescription_Full { get; set; }
 
         public Guid idScheduleInfoID { get; set; }
+
+        public PlannedActivity() { }
+        public PlannedActivity(PlannedActivity oOther)
+            : base(oOther)
+        {
+            idEventID = oOther.idEventID;
+            sName = oOther.sName;
+            sDescription_Brief = oOther.sDescription_Brief;
+            sDescription_Full = oOther.sDescription_Full;
+            idScheduleInfoID = oOther.idScheduleInfoID;
+        }
     }
 }

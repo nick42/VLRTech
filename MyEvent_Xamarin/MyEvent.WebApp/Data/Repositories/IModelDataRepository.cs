@@ -17,5 +17,7 @@ namespace MyEvent.WebApp.Data.Repositories
         Task<Guid> EnsureExistsAsync(ref TModel oInstance);
 
         Task<int> SaveChangesAsync();
+
+        IEnumerable<TModel> Find(Func<TModel, bool> fMatchExpression);
     }
 }

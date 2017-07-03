@@ -12,5 +12,14 @@ namespace MyEvent.WebApp.Data.Models
 
         public Guid idPrimaryLocationID { get; set; }
         public Guid idScheduleInfoID { get; set; }
+
+        public Event() { }
+        public Event(Event oOther)
+            : base(oOther)
+        {
+            sName = oOther.sName;
+            idPrimaryLocationID = oOther.idPrimaryLocationID;
+            idScheduleInfoID = oOther.idScheduleInfoID;
+        }
     }
 }

@@ -10,5 +10,11 @@ namespace MyEvent.WebApp.Data.Models
     {
         [Key]
         public Guid idRowID { get; set; }
+
+        public ObjectWithRowID() { }
+        public ObjectWithRowID(ObjectWithRowID oOther)
+        {
+            idRowID = oOther.idRowID;
+        }
     }
 }

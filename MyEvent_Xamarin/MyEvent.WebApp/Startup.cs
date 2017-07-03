@@ -68,13 +68,16 @@ namespace MyEvent.WebApp
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
 
+            // Deferred tasks for the current scope
+            services.AddScoped<List<Task>>();
+
             // Register the Swagger generator, defining one or more Swagger documents
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(config =>
             {
-                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
+                config.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info
                 {
                     Title = "MyEvent API",
-                    Version = "v1"
+                    Version = "v1",
                 });
             });
         }
@@ -122,9 +125,9 @@ namespace MyEvent.WebApp
             app.UseSwagger();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(c =>
+            app.UseSwaggerUI(config =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEvent API V1");
+                config.SwaggerEndpoint("/swagger/v1/swagger.json", "MyEvent API V1");
             });
 
             AddSampleDataToRepositories(serviceProvider);

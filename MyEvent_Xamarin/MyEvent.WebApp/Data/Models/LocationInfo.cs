@@ -9,5 +9,12 @@ namespace MyEvent.WebApp.Data.Models
     public class LocationInfo : ObjectWithRowID
     {
         public Guid idAddressInfoID { get; set; }
+
+        public LocationInfo() { }
+        public LocationInfo(LocationInfo oOther)
+            : base(oOther)
+        {
+            idAddressInfoID = oOther.idAddressInfoID;
+        }
     }
 }

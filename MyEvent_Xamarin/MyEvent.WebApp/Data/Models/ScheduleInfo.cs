@@ -9,5 +9,12 @@ namespace MyEvent.WebApp.Data.Models
     public class ScheduleInfo : ObjectWithRowID
     {
         public Guid idParentScheduleInfoID { get; set; }
+
+        public ScheduleInfo() { }
+        public ScheduleInfo(ScheduleInfo oOther)
+            : base(oOther)
+        {
+            idParentScheduleInfoID = oOther.idParentScheduleInfoID;
+        }
     }
 }

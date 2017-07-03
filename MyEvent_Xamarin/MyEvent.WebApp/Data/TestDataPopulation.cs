@@ -71,6 +71,10 @@ namespace MyEvent.WebApp.Data
             };
             m_oLocationInfoRepository.EnsureExistsAsync(ref oLocation_GamingSession);
             Debug.Assert(oLocation_GamingSession.idRowID != Guid.Empty);
+
+            oEvent_GamingSession.idPrimaryLocationID = oLocation_GamingSession.idRowID;
+
+            m_oEventRepository.UpdateAsync(oEvent_GamingSession);
         }
     }
 }
