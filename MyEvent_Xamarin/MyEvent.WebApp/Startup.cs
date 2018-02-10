@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +13,9 @@ using Microsoft.Extensions.Logging;
 using MyEvent.WebApp.Data;
 using MyEvent.WebApp.Models;
 using MyEvent.WebApp.Services;
+
+// TODO: Authentication migration for AspNetCore 2.0
+// https://docs.microsoft.com/en-us/aspnet/core/migration/1x-to-2x/identity-2x
 
 namespace MyEvent.WebApp
 {
@@ -110,7 +114,8 @@ namespace MyEvent.WebApp
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+            //app.UseIdentity();
+            app.UseAuthentication();
 
             // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
 

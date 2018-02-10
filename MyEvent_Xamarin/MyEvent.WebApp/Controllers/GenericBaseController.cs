@@ -4,34 +4,26 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using MyEvent.WebApp.Data;
-using MyEvent.WebApp.Data.Models;
 
 namespace MyEvent.WebApp.Controllers
 {
     [Produces("application/json")]
-    [Route("api/[controller]")]
-    [Filters.ValidateModelFilter]
-    public class EventController : Controller
+    //[Route("api/GenericBase")]
+    public class GenericBaseController<TModel> : Controller where TModel : Data.Models.ObjectWithRowID, new()
     {
-        private readonly Data.Repositories.IModelDataRepository<Data.Models.Event> m_oModelDataRepository;
+        private readonly Data.Repositories.IModelDataRepository<TModel> m_oModelDataRepository;
 
-        public EventController(Data.Repositories.IModelDataRepository<Data.Models.Event> oModelDataRepository)
+        public GenericBaseController(Data.Repositories.IModelDataRepository<TModel> oModelDataRepository)
         {
             m_oModelDataRepository = oModelDataRepository;
         }
 
-        // GET: api/Events
-        [HttpGet]
-        public IEnumerable<Event> GetAll()
+        public virtual IEnumerable<TModel> GetAll()
         {
             return m_oModelDataRepository.GetAll();
         }
 
-        // GET: api/Events/5
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetItem([FromRoute] Guid id)
+        public virtual async Task<IActionResult> GetItem(/*[FromRoute]*/ Guid id)
         {
             var oInstance = await m_oModelDataRepository.FindByIDAsync(id);
 
@@ -43,9 +35,7 @@ namespace MyEvent.WebApp.Controllers
             return Ok(oInstance);
         }
 
-        // PUT: api/Events/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] Event oInstance)
+        public virtual async Task<IActionResult> UpdateItem(/*[FromRoute]*/ Guid id, /*[FromBody]*/ TModel oInstance)
         {
             if (id != oInstance.idRowID)
             {
@@ -59,9 +49,7 @@ namespace MyEvent.WebApp.Controllers
             return NoContent();
         }
 
-        // POST: api/Events
-        [HttpPost]
-        public async Task<IActionResult> CreateItem([FromBody] Event oInstance)
+        public virtual async Task<IActionResult> AddItem(/*[FromBody]*/ TModel oInstance)
         {
             await m_oModelDataRepository.AddAsync(ref oInstance);
             await m_oModelDataRepository.SaveChangesAsync();
@@ -69,14 +57,17 @@ namespace MyEvent.WebApp.Controllers
             return CreatedAtAction("GetItem", new { id = oInstance.idRowID }, oInstance);
         }
 
-        // DELETE: api/Events/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteItem([FromRoute] Guid id)
+        public virtual async Task<IActionResult> DeleteItem(/*[FromRoute]*/ Guid id)
         {
             await m_oModelDataRepository.DeleteByIDAsync(id);
             await m_oModelDataRepository.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        public virtual IActionResult GetPrototype()
+        {
+            return Ok(new TModel());
         }
     }
 }

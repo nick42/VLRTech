@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AppData", "AppData\AppData.shproj", "{F720BBB5-2027-42CB-A664-E4F065459F59}"
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "DataAccessLayer", "DataAccessLayer\DataAccessLayer.shproj", "{B5541688-6872-4033-A0B8-917FE6121A1D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.X", "MyEvent.X\MyEvent.X\MyEvent.X.csproj", "{1C6E30F9-DDED-4B65-8D94-DB2190EEE898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyEvent.X", "MyEvent.X\MyEvent.X\MyEvent.X.csproj", "{1C6E30F9-DDED-4B65-8D94-DB2190EEE898}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.X.Droid", "MyEvent.X\MyEvent.X.Droid\MyEvent.X.Droid.csproj", "{6D8B5EBA-9461-4E4D-9990-D0E0766D1AD9}"
 EndProject
@@ -15,9 +15,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.X.iOS", "MyEvent.X\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.X.UWP", "MyEvent.X\MyEvent.X.UWP\MyEvent.X.UWP.csproj", "{17F32267-5C95-40D2-8F3E-140FAFFA195A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.X.DAL.EF", "MyEvent.X.DAL.EF\MyEvent.X.DAL.EF.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyEvent.X.DAL.EF", "MyEvent.X.DAL.EF\MyEvent.X.DAL.EF.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyEvent.WebApp", "MyEvent.WebApp\MyEvent.WebApp.csproj", "{6E3428DE-9A6D-491F-99C0-33734AC74D24}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyEvent.WebApp", "MyEvent.WebApp\MyEvent.WebApp.csproj", "{6E3428DE-9A6D-491F-99C0-33734AC74D24}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyEvent.ngWebApp", "MyEvent.ngWebApp\MyEvent.ngWebApp.csproj", "{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -358,6 +360,54 @@ Global
 		{6E3428DE-9A6D-491F-99C0-33734AC74D24}.Release|x64.Build.0 = Release|Any CPU
 		{6E3428DE-9A6D-491F-99C0-33734AC74D24}.Release|x86.ActiveCfg = Release|Any CPU
 		{6E3428DE-9A6D-491F-99C0-33734AC74D24}.Release|x86.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|ARM.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|x64.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|ARM.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|ARM.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|x64.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|x64.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|x86.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.AppStore|x86.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|ARM.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|x64.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Debug|x86.Build.0 = Debug|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|ARM.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|ARM.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|iPhone.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|x64.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|x64.Build.0 = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|x86.ActiveCfg = Release|Any CPU
+		{F6CE77BB-6D98-40CD-9CAC-8FB5FA31B32A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

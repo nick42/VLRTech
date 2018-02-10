@@ -13,70 +13,33 @@ namespace MyEvent.WebApp.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [Filters.ValidateModelFilter]
-    public class AddressInfoController : Controller
+    public class AddressInfoController : GenericBaseController<Data.Models.AddressInfo>
     {
-        private readonly Data.Repositories.IModelDataRepository<Data.Models.AddressInfo> m_oModelDataRepository;
-
         public AddressInfoController(Data.Repositories.IModelDataRepository<Data.Models.AddressInfo> oModelDataRepository)
-        {
-            m_oModelDataRepository = oModelDataRepository;
-        }
+            : base(oModelDataRepository)
+        {}
 
         // GET: api/AddressInfo
         [HttpGet]
-        public IEnumerable<AddressInfo> GetAddressInfo()
-        {
-            return m_oModelDataRepository.GetAll();
-        }
+        public override IEnumerable<AddressInfo> GetAll() => base.GetAll();
 
         // GET: api/AddressInfo/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetAddressInfo([FromRoute] Guid id)
-        {
-            var oInstance = await m_oModelDataRepository.FindByIDAsync(id);
-
-            if (oInstance == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(oInstance);
-        }
+        public override async Task<IActionResult> GetItem([FromRoute] Guid id) => await base.GetItem(id);
 
         // PUT: api/AddressInfo/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAddressInfo([FromRoute] Guid id, [FromBody] AddressInfo oInstance)
-        {
-            if (id != oInstance.idRowID)
-            {
-                return BadRequest();
-            }
-
-            // TODO: Catch update errors...
-            await m_oModelDataRepository.UpdateAsync(oInstance);
-            await m_oModelDataRepository.SaveChangesAsync();
-
-            return NoContent();
-        }
+        public override async Task<IActionResult> UpdateItem([FromRoute] Guid id, [FromBody] AddressInfo oInstance) => await base.UpdateItem(id, oInstance);
 
         // POST: api/AddressInfo
         [HttpPost]
-        public async Task<IActionResult> PostAddressInfo([FromBody] AddressInfo oInstance)
-        {
-            await m_oModelDataRepository.AddAsync(ref oInstance);
-            await m_oModelDataRepository.SaveChangesAsync();
-
-            return CreatedAtAction("GetAddressInfo", new { id = oInstance.idRowID }, oInstance);
-        }
+        public override async Task<IActionResult> AddItem([FromBody] AddressInfo oInstance) => await base.AddItem(oInstance);
 
         // DELETE: api/AddressInfo/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAddressInfo([FromRoute] Guid id)
-        {
-            await m_oModelDataRepository.DeleteByIDAsync(id);
-            await m_oModelDataRepository.SaveChangesAsync();
+        public override async Task<IActionResult> DeleteItem([FromRoute] Guid id) => await base.DeleteItem(id);
 
-            return NoContent();
-        }
+        [HttpGet("prototype")]
+        public override IActionResult GetPrototype() => base.GetPrototype();
     }
 }
