@@ -8,21 +8,27 @@ namespace MyEvent.WebApp.Data
 {
     public class TestDataPopulation
     {
-        protected Repositories.IModelDataRepository<Models.Event> m_oEventRepository;
-        protected Repositories.IModelDataRepository<Models.PlannedActivity> m_oPlannedActivityRepository;
-        protected Repositories.IModelDataRepository<Models.LocationInfo> m_oLocationInfoRepository;
-        protected Repositories.IModelDataRepository<Models.AddressInfo> m_oAddressInfoRepository;
+        protected Repositories.IModelDataRepository<Models.Event> m_oDataRepoFor_Event;
+        protected Repositories.IModelDataRepository<Models.PlannedActivity> m_oDataRepoFor_PlannedActivity;
+        protected Repositories.IModelDataRepository<Models.LocationInfo> m_oDataRepoFor_LocationInfo;
+        protected Repositories.IModelDataRepository<Models.AddressInfo> m_oDataRepoFor_AddressInfo;
+        protected Repositories.IModelDataRepository<Models.User> m_oDataRepoFor_User;
+        protected Repositories.IModelDataRepository<Models.AccessPermission_PerUser> m_oDataRepoFor_AccessPermission_PerUser;
 
         public TestDataPopulation(
-            Repositories.IModelDataRepository<Models.Event> iEventRepository, 
+            Repositories.IModelDataRepository<Models.Event> oDataRepository_Event, 
             Repositories.IModelDataRepository<Models.PlannedActivity> oPlannedActivityRepository,
             Repositories.IModelDataRepository<Models.LocationInfo> oLocationInfoRepository,
-            Repositories.IModelDataRepository<Models.AddressInfo> oAddressInfoRepository)
+            Repositories.IModelDataRepository<Models.AddressInfo> oAddressInfoRepository,
+            Repositories.IModelDataRepository<Models.User> oUserRepository,
+            Repositories.IModelDataRepository<Models.AccessPermission_PerUser> oDataRepoFor_AccessPermission_PerUser)
         {
-            m_oEventRepository = iEventRepository;
-            m_oPlannedActivityRepository = oPlannedActivityRepository;
-            m_oLocationInfoRepository = oLocationInfoRepository;
-            m_oAddressInfoRepository = oAddressInfoRepository;
+            m_oDataRepoFor_Event = oDataRepository_Event;
+            m_oDataRepoFor_PlannedActivity = oPlannedActivityRepository;
+            m_oDataRepoFor_LocationInfo = oLocationInfoRepository;
+            m_oDataRepoFor_AddressInfo = oAddressInfoRepository;
+            m_oDataRepoFor_User = oUserRepository;
+            m_oDataRepoFor_AccessPermission_PerUser = oDataRepoFor_AccessPermission_PerUser;
         }
 
         public void PopulateTestData()
@@ -31,8 +37,7 @@ namespace MyEvent.WebApp.Data
             {
                 sName = "Nerd Day",
             };
-
-            m_oEventRepository.EnsureExistsAsync(ref oEvent_GamingSession);
+            m_oDataRepoFor_Event.EnsureExistsAsync(ref oEvent_GamingSession);
             Debug.Assert(oEvent_GamingSession.idRowID != Guid.Empty);
 
             Models.PlannedActivity oActivity_Adventure = new Models.PlannedActivity
@@ -42,7 +47,7 @@ namespace MyEvent.WebApp.Data
                 sDescription_Brief = "Explore, fight, get loot.",
                 sDescription_Full = "Blah blah blah, more stuff.",
             };
-            m_oPlannedActivityRepository.EnsureExistsAsync(ref oActivity_Adventure);
+            m_oDataRepoFor_PlannedActivity.EnsureExistsAsync(ref oActivity_Adventure);
             Debug.Assert(oActivity_Adventure.idRowID != Guid.Empty);
 
             Models.PlannedActivity oActivity_Socialize = new Models.PlannedActivity
@@ -52,7 +57,7 @@ namespace MyEvent.WebApp.Data
                 sDescription_Brief = "Pretend I have friends.",
                 sDescription_Full = "This is where I pretend I have social skills, or something.",
             };
-            m_oPlannedActivityRepository.EnsureExistsAsync(ref oActivity_Socialize);
+            m_oDataRepoFor_PlannedActivity.EnsureExistsAsync(ref oActivity_Socialize);
             Debug.Assert(oActivity_Adventure.idRowID != Guid.Empty);
 
             Models.AddressInfo oAddress_Somewhere = new Models.AddressInfo
@@ -62,19 +67,36 @@ namespace MyEvent.WebApp.Data
                 sState = "CA",
                 sZipCode = "90210",
             };
-            m_oAddressInfoRepository.EnsureExistsAsync(ref oAddress_Somewhere);
+            m_oDataRepoFor_AddressInfo.EnsureExistsAsync(ref oAddress_Somewhere);
             Debug.Assert(oAddress_Somewhere.idRowID != Guid.Empty);
 
             Models.LocationInfo oLocation_GamingSession = new Models.LocationInfo
             {
                 idAddressInfoID = oAddress_Somewhere.idRowID,
             };
-            m_oLocationInfoRepository.EnsureExistsAsync(ref oLocation_GamingSession);
+            m_oDataRepoFor_LocationInfo.EnsureExistsAsync(ref oLocation_GamingSession);
             Debug.Assert(oLocation_GamingSession.idRowID != Guid.Empty);
 
             oEvent_GamingSession.idPrimaryLocationID = oLocation_GamingSession.idRowID;
 
-            m_oEventRepository.UpdateAsync(oEvent_GamingSession);
+            m_oDataRepoFor_Event.UpdateAsync(oEvent_GamingSession);
+
+            var oUser_Default = new Models.User
+            {
+                sName = "Captain Obvious",
+            };
+            m_oDataRepoFor_User.EnsureExistsAsync(ref oUser_Default);
+            Debug.Assert(oUser_Default.idRowID != Guid.Empty);
+
+            var oAccessPermission_ForUser_Default = new Models.AccessPermission_PerUser
+            {
+                idUserID = oUser_Default.idRowID,
+                idEventID = oEvent_GamingSession.idRowID,
+                nPermissionBits = 0xFFFFFFFF,
+            };
+            m_oDataRepoFor_AccessPermission_PerUser.EnsureExistsAsync(ref oAccessPermission_ForUser_Default);
+            Debug.Assert(oAccessPermission_ForUser_Default.idRowID != Guid.Empty);
+
         }
     }
 }

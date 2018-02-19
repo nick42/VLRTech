@@ -66,6 +66,8 @@ namespace MyEvent.WebApp
             services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.LocationInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.LocationInfo>>();
             services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AddressInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AddressInfo>>();
             services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.ScheduleInfo>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.ScheduleInfo>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.User>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.User>>();
+            services.AddSingleton<Data.Repositories.IModelDataRepository<Data.Models.AccessPermission_PerUser>, Data.Repositories.ModelDataRepository_DataInInstance<Data.Models.AccessPermission_PerUser>>();
             services.AddSingleton<TestDataPopulation>();
 
             // Add application services.
